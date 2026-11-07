@@ -1,0 +1,28 @@
+---
+# Feedback only: unfinished exercises show as FAIL in the summary,
+# but the run fails only if exercises.py cannot be imported.
+name: check
+
+"on":
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run check.py
+        shell: bash
+        run: |
+          python3 --version
+          python3 check.py | tee check.log
+          {
+            echo '```'
+            grep -E '^(in class|at home|further):' check.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
