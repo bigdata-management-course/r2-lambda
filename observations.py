@@ -1,42 +1,36 @@
-"""What you observed. Replace each None with the value the demo showed you, then run check.py.
+"""What you observed. Replace each None with the value the program showed you, then run check.py.
 
-Write numbers as numbers (1803, not "1803") and hours or timestamps as strings ("2026-10-26T09:15:00").
-worksheet.pdf says, for each one, which demo to run and what to change.
+Write numbers as numbers (1803, not "1803"), pages as printed ("enwiki:Main Page"), and a percentage
+as the number printed before the % sign (12.5). Undo every edit before the next item.
 """
 
-# === "Your turn", one per Lecture 2 concept: 6-7 in class, 1-5 at home =======
+# === IN CLASS ===================================================================================
 
-# 1. Immutable master dataset: append arrival hour 16 with gen.py
-NEW_FIRST_ID = None         # "id" of the first fact in the new file arrival=2026-10-26T16.jsonl
+# 1. The naive counter: python3 counter.py, as it is (version 2 runs in minutes 6-8)
+V2_ROW = None            # final count of the broken row enwiki:
+FIRST_REAL_COUNT = None  # final count of the first real page (not a broken "wiki:" row) in the list
 
-# 2. Event time vs arrival time: demo.py step 2 with ARRIVAL = H[8]
-LATE_IN_08 = None           # late facts in the file arrival=2026-10-26T08
-EARLIEST_IN_08 = None       # earliest event time in that file
+# 2. Batch from raw facts: python3 collect.py, then python3 batch.py
+BATCH_PAGES = None       # "pages" in the batch view
+V2_PAGES = None          # "pages" in the view with KEY = core.page_v2 in batch.py
 
-# 3. Batch view: demo.py step 3 with KEY grouping by (ref, event hour)
-REF_ROWS = None             # rows of the view with HORIZON = H[12]
-GOOGLE_10 = None            # views of ('google', '2026-10-26T10') in that view
+# 3. Event time vs arrival time: python3 batch.py
+LATE_EVENTS = None       # late edits (more than LATE = 10 s)
+MOVED = None             # edits that sit in the file of a later minute than the one they happened in
 
-# 4. Serving layer: demo.py step 4 with ASK = ("/home", H[13])
-HOME_13_BEFORE = None       # get() before the swap
-HOME_13_AFTER = None        # get() after the swap
+# 4. The seam: in core.py query(), delete since=T, then python3 dashboard.py
+SEAM_SEEN = None         # "edits seen" in the frame 23:02:19
+SEAM_TOTAL = None        # "query total" in the same frame
 
-# 5. Speed layer: demo.py step 5 with STREAM = lam.deliver
-DUPLICATES = None           # views counted minus 40000
-NEWS_12_WITH_DUPS = None    # realtime of /news/8812 12:00
+# 5. Kappa: python3 kappa.py with KEEP = lambda e: not e["bot"]
+BOT_SHARE = None         # dropped, in % as printed
+ENWIKI_KEPT = None       # the "kept" column of enwiki
 
-# 6. Query = batch + speed: demo.py step 6 with since=T removed in lam.query
-DOUBLE_11 = None            # total at 11:00 in the middle table
+# === AT HOME: the same tools, new questions =====================================================
 
-# 7. Kappa: demo.py step 7 with KEEP dropping bot visitors
-BOT_VIEWS = None            # views dropped by KEEP
-
-# === AT HOME: the same tools, new questions ===================================
-
-STORE_NEWS_12 = None        # 1. demo.py step 8: the mutable store's ('/news', 12:00) counter
-MOST_LATE_FILE = None       # 2. arrival hour whose file has the most late facts
-GOOGLE_SHARE_11 = None      # 3. google's share of all 11:00 views, all facts, round(x, 3)
-KEYS_AFTER_SWAP = None      # 4. keys of the view published with horizon H[14]
-LATE_11_IN_BUCKET_13 = None  # 5. /news/8812 11:00 views held in speed bucket 13
-LOST_BY_SPLIT = None        # 6. {event hour: views} an event-hour split drops, all URLs
-V2_NEWS_11 = None           # 7. /news/8812 11:00 in the bot-free Kappa view
+OFFSET_1000 = None       # 1. tap.py with SHOW = 1000: Kafka offset of event 1000
+LEON_NO_BUG = None       # 2. counter.py with V2 = None: final count of frwiki:Léon Grandin
+LATE_20 = None           # 3. batch.py with LATE = 20: late edits
+BATCH_LAG4 = None        # 4. dashboard.py with BATCH_LAG = 4: batch column of the top page, last frame
+NEW_KEPT = None          # 5. kappa.py with KEEP = lambda e: e["type"] == "new" (new articles only): kept
+NEW_ENWIKI = None        #    and the "kept" column of enwiki
