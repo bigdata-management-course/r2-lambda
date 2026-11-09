@@ -1,6 +1,6 @@
-# Recitation 2: a live Wikipedia dashboard, Lambda and Kappa
+# Recitation 1: a live Wikipedia dashboard, Lambda and Kappa
 
-The code of Recitation 2 (Lecture 2: Lambda and Kappa architectures). One question, asked of the live
+The code of Recitation 1 (Lecture 2: Lambda and Kappa architectures). One question, asked of the live
 stream of every change on every Wikimedia wiki: *which Wikipedia articles are being edited most right
 now, and how much of it is bots?* The counters keep only edits and new pages of Wikipedia articles
 (7,211 of the 46,735 recorded events): category and log events are bookkeeping, and Wikidata items,
